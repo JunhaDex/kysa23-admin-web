@@ -1,69 +1,63 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import Style from "@/views/StyleView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
 
 const routes = [
   {
     meta: {
-      title: "Select style",
+      title: "홈",
     },
     path: "/",
-    name: "style",
-    component: Style,
-  },
-  {
-    // Document title tag
-    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
-    meta: {
-      title: "Dashboard",
-    },
-    path: "/dashboard",
     name: "dashboard",
     component: Home,
   },
   {
     meta: {
-      title: "Tables",
+      title: "조편성",
     },
-    path: "/tables",
-    name: "tables",
-    component: () => import("@/views/TablesView.vue"),
+    path: "/group",
+    name: "group",
+    component: () => import("@/views/GroupView.vue"),
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("usn")) {
+        next();
+      } else {
+        next({ name: "login" });
+      }
+    },
   },
   {
     meta: {
-      title: "Forms",
+      title: "방배정",
     },
-    path: "/forms",
-    name: "forms",
-    component: () => import("@/views/FormsView.vue"),
+    path: "/room",
+    name: "room",
+    component: () => import("@/views/RoomView.vue"),
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("usn")) {
+        next();
+      } else {
+        next({ name: "login" });
+      }
+    },
   },
   {
     meta: {
-      title: "Profile",
+      title: "내정보",
     },
     path: "/profile",
     name: "profile",
     component: () => import("@/views/ProfileView.vue"),
-  },
-  {
-    meta: {
-      title: "Ui",
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("usn")) {
+        next();
+      } else {
+        next({ name: "login" });
+      }
     },
-    path: "/ui",
-    name: "ui",
-    component: () => import("@/views/UiView.vue"),
   },
   {
     meta: {
-      title: "Responsive layout",
-    },
-    path: "/responsive",
-    name: "responsive",
-    component: () => import("@/views/ResponsiveView.vue"),
-  },
-  {
-    meta: {
-      title: "Login",
+      title: "로그인",
     },
     path: "/login",
     name: "login",
@@ -71,16 +65,17 @@ const routes = [
   },
   {
     meta: {
-      title: "Error",
+      title: "스타일가이드",
     },
-    path: "/error",
-    name: "error",
-    component: () => import("@/views/ErrorView.vue"),
+    path: "/style",
+    name: "style",
+    // component: () => import("@/views/UiView.vue"),
+    component: () => import("@/views/UiView.vue"),
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     return savedPosition || { top: 0 };

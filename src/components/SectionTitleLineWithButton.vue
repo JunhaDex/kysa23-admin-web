@@ -16,8 +16,6 @@ defineProps({
   },
   main: Boolean,
 });
-
-const hasSlot = computed(() => useSlots().default);
 </script>
 
 <template>
@@ -38,7 +36,6 @@ const hasSlot = computed(() => useSlots().default);
         {{ title }}
       </h1>
     </div>
-    <slot v-if="hasSlot" />
-    <BaseButton v-else :icon="mdiCog" color="whiteDark" />
+    <slot />
   </section>
 </template>

@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed, useSlots } from "vue";
+import { computed, useSlots } from "vue";
 import { mdiClose } from "@mdi/js";
 import { colorsBgLight, colorsOutline } from "@/colors.js";
 import BaseLevel from "@/components/BaseLevel.vue";
 import BaseIcon from "@/components/BaseIcon.vue";
 import BaseButton from "@/components/BaseButton.vue";
+import { useUIStore } from "@/stores/ui.store";
 
 const props = defineProps({
   icon: {
@@ -21,11 +22,11 @@ const props = defineProps({
 const componentClass = computed(() =>
   props.outline ? colorsOutline[props.color] : colorsBgLight[props.color]
 );
-
-const isDismissed = ref(false);
+const uiStore = useUIStore();
+const isDismissed = computed(() => !uiStore.notiBar.reveal);
 
 const dismiss = () => {
-  isDismissed.value = true;
+  uiStore.notiBar.reveal = false;
 };
 
 const slots = useSlots();
