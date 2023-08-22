@@ -29,13 +29,13 @@ export default [
     icon: mdiAccountCircle,
   },
   {
-    href: "https://github.com/justboil/admin-one-vue-tailwind",
+    href: "https://discord.gg/v2Vd2kbDmk",
     label: "디스코드",
     icon: mdiForumOutline,
     target: "_blank",
   },
   {
-    href: "https://github.com/justboil/admin-one-react-tailwind",
+    href: "https://instagram.com/2023_kysa?igshid=MzRlODBiNWFlZA==",
     label: "인스타그램",
     icon: mdiInstagram,
     target: "_blank",
