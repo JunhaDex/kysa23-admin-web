@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "kysa23-project"
+  },
+  "targets": {
+      "kysa23-project": {
+        "hosting": {
+          "dash": [
+            "kysa23-admin"
+          ]
+        }
+      }
+    },
+    "etags": {}
+}
