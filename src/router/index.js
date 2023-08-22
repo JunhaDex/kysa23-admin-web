@@ -63,15 +63,6 @@ const routes = [
     name: "login",
     component: () => import("@/views/LoginView.vue"),
   },
-  {
-    meta: {
-      title: "스타일가이드",
-    },
-    path: "/style",
-    name: "style",
-    // component: () => import("@/views/UiView.vue"),
-    component: () => import("@/views/UiView.vue"),
-  },
 ];
 
 const router = createRouter({
