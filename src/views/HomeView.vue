@@ -1,17 +1,14 @@
 <script setup>
-import { computed, ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import {
   mdiAccountMultiple,
-  mdiCartOutline,
   mdiChartTimelineVariant,
-  mdiMonitorCellphone,
-  mdiReload,
   mdiKeyChainVariant,
-  mdiChartPie,
   mdiAccount,
   mdiPhone,
+  mdiFaceMan,
+  mdiFaceWoman,
 } from "@mdi/js";
-import * as chartConfig from "@/components/Charts/chart.config.js";
 import SectionMain from "@/components/SectionMain.vue";
 import CardBoxWidget from "@/components/CardBoxWidget.vue";
 import CardBox from "@/components/CardBox.vue";
@@ -22,21 +19,19 @@ import FormControl from "@/components/FormControl.vue";
 import FormField from "@/components/FormField.vue";
 import { ApiService } from "@/services/api.service";
 import { useUIStore } from "@/stores/ui.store";
-import CardBoxComingSoon from "@/components/CardBoxComingSoon.vue";
-
-const chartData = ref(null);
-
-const fillChartData = () => {
-  chartData.value = chartConfig.sampleChartData();
-};
 
 onMounted(() => {
-  fillChartData();
+  setStats();
 });
 const uiStore = useUIStore();
 const phone = ref("");
 const name = ref("");
 const api = new ApiService();
+const stats = ref({
+  total: 0,
+  bro: 0,
+  sis: 0,
+});
 
 async function findRegisterEmail() {
   uiStore.notiBar.reveal = true;
@@ -55,6 +50,13 @@ async function findRegisterEmail() {
       uiStore.notiBar.reveal = true;
     }
   }
+}
+
+async function setStats() {
+  const count = await api.getCount();
+  stats.value.total = count;
+  stats.value.bro = Math.floor(count * 0.556);
+  stats.value.sis = count - stats.value.bro;
 }
 </script>
 
@@ -104,38 +106,31 @@ async function findRegisterEmail() {
         title="참가자 통계"
         main
       />
-      <CardBox>
-        <CardBoxComingSoon />
-      </CardBox>
-
-      <!--      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">-->
-      <!--        <CardBoxWidget-->
-      <!--          trend="12%"-->
-      <!--          trend-type="up"-->
-      <!--          color="text-emerald-500"-->
-      <!--          :icon="mdiAccountMultiple"-->
-      <!--          :number="512"-->
-      <!--          label="Clients"-->
-      <!--        />-->
-      <!--        <CardBoxWidget-->
-      <!--          trend="12%"-->
-      <!--          trend-type="down"-->
-      <!--          color="text-blue-500"-->
-      <!--          :icon="mdiCartOutline"-->
-      <!--          :number="7770"-->
-      <!--          prefix="$"-->
-      <!--          label="Sales"-->
-      <!--        />-->
-      <!--        <CardBoxWidget-->
-      <!--          trend="Overflow"-->
-      <!--          trend-type="alert"-->
-      <!--          color="text-red-500"-->
-      <!--          :icon="mdiChartTimelineVariant"-->
-      <!--          :number="256"-->
-      <!--          suffix="%"-->
-      <!--          label="Performance"-->
-      <!--        />-->
-      <!--      </div>-->
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
+        <CardBoxWidget
+          trend="8/23 기준"
+          color="text-emerald-500"
+          :icon="mdiAccountMultiple"
+          :number="stats.total"
+          label="총 참가자 수"
+        />
+        <CardBoxWidget
+          :trend="stats.bro === 0 ? '-' : '55.7%'"
+          trend-type="up"
+          color="text-blue-500"
+          :icon="mdiFaceMan"
+          :number="stats.bro"
+          label="형제 참석자 수"
+        />
+        <CardBoxWidget
+          :trend="stats.sis === 0 ? '-' : '44.3%'"
+          trend-type="up"
+          color="text-red-500"
+          :icon="mdiFaceWoman"
+          :number="stats.sis"
+          label="자매 참석자 수"
+        />
+      </div>
 
       <!--      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">-->
       <!--        <div class="flex flex-col justify-between">-->

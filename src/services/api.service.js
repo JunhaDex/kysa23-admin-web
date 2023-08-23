@@ -2,7 +2,8 @@ import axios from "axios";
 
 export class ApiService {
   constructor() {
-    this.api = axios.create({ baseURL: "https://api.kysa.page/" });
+    // this.api = axios.create({ baseURL: "https://api.kysa.page/" });
+    this.api = axios.create({ baseURL: "http://localhost:3000/" });
   }
 
   async findMyEmail(name, phone) {
@@ -39,5 +40,15 @@ export class ApiService {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  async getCount() {
+    const res = await this.api.get("register/stats");
+    return res.data.count;
+  }
+
+  async getAdditionalInfo(email) {
+    const register = await this.api.post("register/me/more", { email });
+    return register.data;
   }
 }

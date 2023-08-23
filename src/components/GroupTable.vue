@@ -2,7 +2,8 @@
 import UserAvatar from "@/components/UserAvatar.vue";
 import BaseButtons from "@/components/BaseButtons.vue";
 import BaseButton from "@/components/BaseButton.vue";
-import { mdiEye } from "@mdi/js";
+import { mdiChessKing, mdiChessQueen, mdiEye } from "@mdi/js";
+import PillTag from "@/components/PillTag.vue";
 
 defineProps({
   items: {
@@ -60,7 +61,14 @@ function parseJoins(joins) {
           />
         </td>
         <td class="text-center" data-label="Name">
-          {{ client.name }}
+          {{ client.name }}&nbsp;
+          <PillTag
+            v-if="client.isLeader"
+            :color="client.sex === 'm' ? 'success' : 'danger'"
+            label=""
+            :icon="client.sex === 'm' ? mdiChessKing : mdiChessQueen"
+            small
+          />
         </td>
         <td data-label="Age">
           {{ parseAge(client.dob) }}

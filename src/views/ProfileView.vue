@@ -1,47 +1,16 @@
 <script setup>
-import { reactive } from "vue";
-import { useMainStore } from "@/stores/main";
-import {
-  mdiAccount,
-  mdiMail,
-  mdiAsterisk,
-  mdiFormTextboxPassword,
-  mdiGithub,
-  mdiAccountMultiple,
-} from "@mdi/js";
+import { mdiAccountMultiple } from "@mdi/js";
 import SectionMain from "@/components/SectionMain.vue";
-import CardBox from "@/components/CardBox.vue";
-import BaseDivider from "@/components/BaseDivider.vue";
-import FormField from "@/components/FormField.vue";
-import FormControl from "@/components/FormControl.vue";
-import FormFilePicker from "@/components/FormFilePicker.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
 import UserCard from "@/components/UserCard.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import CardBoxComingSoon from "@/components/CardBoxComingSoon.vue";
+import { computed } from "vue";
+import { useUserStore } from "@/stores/user.store";
+import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
+import CardBox from "@/components/CardBox.vue";
 
-const mainStore = useMainStore();
-
-const profileForm = reactive({
-  name: mainStore.userName,
-  email: mainStore.userEmail,
-});
-
-const passwordForm = reactive({
-  password_current: "",
-  password: "",
-  password_confirmation: "",
-});
-
-const submitProfile = () => {
-  mainStore.setUser(profileForm);
-};
-
-const submitPass = () => {
-  //
-};
+const userStore = useUserStore();
+const isReady = computed(() => !!userStore.userInfo);
 </script>
 
 <template>
@@ -52,10 +21,15 @@ const submitPass = () => {
         title="청년대회 참여정보 확인하기"
         main
       />
+      <CardBoxComponentEmpty v-if="!isReady" message="Loading..." />
+      <UserCard v-else class="mb-6" />
       <CardBox>
-        <CardBoxComingSoon />
+        <p class="text-center">
+          위 등록정보에 문제가 있거나 수정이 필요한 경우, 사이트 오피스로
+          문의하여 주십시오.
+        </p>
+        <p class="text-center"><small>담당자 연락처: 010-5849-5378 김준하 형제</small></p>
       </CardBox>
-      <!--      <UserCard class="mb-6" />-->
     </SectionMain>
   </LayoutAuthenticated>
 </template>

@@ -4,7 +4,7 @@ import SectionMain from "@/components/SectionMain.vue";
 import CardBox from "@/components/CardBox.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import CardBoxComingSoon from "@/components/CardBoxComingSoon.vue";
+import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
 </script>
 
 <template>
@@ -16,7 +16,7 @@ import CardBoxComingSoon from "@/components/CardBoxComingSoon.vue";
         main
       />
       <CardBox>
-        <CardBoxComingSoon />
+        <CardBoxComponentEmpty message="페이지가 준비중 입니다." />
       </CardBox>
     </SectionMain>
   </LayoutAuthenticated>

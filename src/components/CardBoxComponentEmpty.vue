@@ -1,5 +1,13 @@
 <template>
   <div class="text-center py-24 text-gray-500 dark:text-slate-400">
-    <p>검색을 통해 결과를 확인합니다.</p>
+    <p>{{ message }}</p>
   </div>
 </template>
+<script setup>
+defineProps({
+  message: {
+    type: String,
+    default: "",
+  },
+});
+</script>

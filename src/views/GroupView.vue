@@ -61,7 +61,6 @@ async function searchWithOption(client) {
 
   listCount.value = data.count;
   listData.value = data.items;
-  listGroupLead.value = data.leader;
 }
 </script>
 

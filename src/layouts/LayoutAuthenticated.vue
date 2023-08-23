@@ -51,7 +51,7 @@ watch(
     }
   }
 );
-onMounted(() => {
+onMounted(async () => {
   const user = localStorage.getItem("usn");
   if (user) {
     userStore.setUser(JSON.parse(user));
