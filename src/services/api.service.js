@@ -2,8 +2,8 @@ import axios from "axios";
 
 export class ApiService {
   constructor() {
-    this.api = axios.create({ baseURL: "https://api.kysa.page/" });
-    // this.api = axios.create({ baseURL: "http://localhost:3000/" });
+    // this.api = axios.create({ baseURL: "https://api.kysa.page/" });
+    this.api = axios.create({ baseURL: "http://localhost:3000/" });
   }
 
   async findMyEmail(name, phone) {
@@ -36,6 +36,15 @@ export class ApiService {
         { email },
         { params: { name } }
       );
+      return register.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async searchRoommates(email) {
+    try {
+      const register = await this.api.post("register/roommate", { email });
       return register.data;
     } catch (e) {
       console.error(e);

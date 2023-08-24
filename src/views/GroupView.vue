@@ -127,7 +127,7 @@ async function searchWithOption(client) {
           :actions="isAction"
           @go-to="searchWithOption"
         />
-        <CardBoxComponentEmpty v-else />
+        <CardBoxComponentEmpty message="검색을 통해 결과를 확인하세요." v-else />
       </CardBox>
     </SectionMain>
   </LayoutAuthenticated>

@@ -26,6 +26,19 @@ function parseJoins(joins) {
   return joins.map((day) => `8/${day}`).join(", ");
 }
 
+function parseRoom(room) {
+  if (room) {
+    const rType = room[0];
+    if (rType === "H") {
+      return `상록호텔 ${room.substring(1)}호`;
+    } else {
+      const resort = room.split("-");
+      return `콘도 ${resort[0]}동 ${resort[1]}호`;
+    }
+  }
+  return "";
+}
+
 async function getPayment() {
   additional.value = await api.getAdditionalInfo(user.value.email);
 }
@@ -91,7 +104,9 @@ onMounted(() => {
             </tr>
             <tr>
               <th>방배정</th>
-              <td class="text-center">-</td>
+              <td class="text-center">
+                {{ parseRoom(additional?.room ?? "") }}
+              </td>
             </tr>
           </tbody>
         </table>
