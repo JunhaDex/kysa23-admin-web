@@ -2,8 +2,8 @@ import axios from "axios";
 
 export class ApiService {
   constructor() {
-    // this.api = axios.create({ baseURL: "https://api.kysa.page/" });
-    this.api = axios.create({ baseURL: "http://localhost:3000/" });
+    this.api = axios.create({ baseURL: "https://api.kysa.page/" });
+    // this.api = axios.create({ baseURL: "http://localhost:3000/" });
   }
 
   async findMyEmail(name, phone) {
